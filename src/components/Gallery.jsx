@@ -7,7 +7,7 @@ import { Loader } from './Loader';
 import { APP_LOAD_IMAGE_COUNT } from '../constants';
 
 
-const Gallery = ( {images, currentPage, isLoading, getImages} ) => {
+const Gallery = ( {images, currentPage, isLoading, getImages, error} ) => {
 
   useEffect( () => {
     getImages( currentPage, APP_LOAD_IMAGE_COUNT );
@@ -29,14 +29,16 @@ const Gallery = ( {images, currentPage, isLoading, getImages} ) => {
   } );
 
   return (
+
     <>
+      { error && <h1>{error}</h1> }
       <ul className = "container">{items}</ul>
       <button
         onClick = {ev => getImages( ++currentPage, APP_LOAD_IMAGE_COUNT )}
       >
         load more (just for testing)
       </button>
-      { isLoading && <Loader/> }
+      {isLoading && <Loader/>}
     </>
   );
 };
@@ -45,7 +47,8 @@ const mapStateToProps = ( state ) => {
   return {
     images: state.gallery.images,
     currentPage: state.gallery.currentPage,
-    isLoading: state.gallery.isLoading
+    isLoading: state.gallery.isLoading,
+    error: state.gallery.error
   };
 };
 

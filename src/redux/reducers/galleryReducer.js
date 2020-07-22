@@ -1,11 +1,13 @@
 import {
-  LOADING_COMPLETED,
-  LOADING_IN_PROGRESS } from '../actions/galleryActions';
+  LOADING_COMPLETED, LOADING_ERROR,
+  LOADING_IN_PROGRESS
+} from '../actions/galleryActions';
 
 const initialState = {
   currentPage: 1,
   images: [],
-  isLoading: false
+  isLoading: false,
+  error: false
 };
 
 export function galleryReducer( state = initialState, action ) {
@@ -20,7 +22,12 @@ export function galleryReducer( state = initialState, action ) {
       return {
         ...state,
         isLoading: true
-      }
+      };
+    case LOADING_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
   }
   return state;
 }

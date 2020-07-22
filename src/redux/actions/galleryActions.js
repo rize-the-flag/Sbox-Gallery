@@ -4,4 +4,4 @@ export const LOADING_ERROR = 'LOADING_ERROR';
 
 export const loadingCompleted = (page, images) => ({type: LOADING_COMPLETED, page, images});
 export const loadingInProgress = () => ({type: LOADING_IN_PROGRESS});
-export const loadingError = () => ({type: LOADING_ERROR});
+export const loadingError = (error) => ({type: LOADING_ERROR, error});
