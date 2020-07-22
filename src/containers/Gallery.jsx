@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { ImageCard } from '../components/ImageCard';
-import { getImages } from '../redux/thunks/galleryThunks';
+import { fetchImages, getImages } from '../redux/thunks/galleryThunks';
 import { Loader } from '../components/Loader';
 import { APP_LOAD_IMAGE_COUNT } from '../constants';
 
 
-const Gallery = ( {images, currentPage, isLoading, getImages, error} ) => {
+const Gallery = ( {images, currentPage, isLoading, fetchImages, error} ) => {
 
   useEffect( () => {
-    getImages( currentPage, APP_LOAD_IMAGE_COUNT );
+    fetchImages( currentPage, APP_LOAD_IMAGE_COUNT );
   }, [] );
 
   const items = images.map( ( item ) => {
@@ -29,12 +29,11 @@ const Gallery = ( {images, currentPage, isLoading, getImages, error} ) => {
   } );
 
   return (
-
     <>
       { error && <h1>{error}</h1> }
       <ul className = "container">{items}</ul>
       <button
-        onClick = {ev => getImages( ++currentPage, APP_LOAD_IMAGE_COUNT )}
+        onClick = {ev => fetchImages( ++currentPage, APP_LOAD_IMAGE_COUNT )}
       >
         load more (just for testing)
       </button>
@@ -53,7 +52,7 @@ const mapStateToProps = ( state ) => {
 };
 
 const mapDispatchToProps = {
-  getImages
+  fetchImages
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )( Gallery );

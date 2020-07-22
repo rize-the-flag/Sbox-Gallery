@@ -1,7 +1,5 @@
-export const LOADING_IN_PROGRESS = 'LOADING_IN_PROGRESS';
-export const LOADING_COMPLETED = 'LOADING_COMPLETED';
-export const LOADING_ERROR = 'LOADING_ERROR';
+import { createAction } from '@reduxjs/toolkit';
 
-export const loadingCompleted = (page, images) => ({type: LOADING_COMPLETED, page, images});
-export const loadingInProgress = () => ({type: LOADING_IN_PROGRESS});
-export const loadingError = (error) => ({type: LOADING_ERROR, error});
+export const fetchingImages = createAction('FETCHING_IMAGES');
+export const fetchingImagesCompleted = createAction('FETCHING_IMAGES_COMPLETED');
+export const fetchingImagesError = createAction('FETCHING_IMAGES_ERROR');
