@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { render } from 'react-dom';
 import '@babel/polyfill';
 
 import { App } from './components/App';
-import { init } from './init';
+import './scss/styles.scss';
+import { withAuth } from './HOCs/withAuth';
 
-init()
-  .then( currentUser => render( <App currentUser = {currentUser}/>, document.getElementById( `root` ) ) );
+
+const WrappedApp = withAuth(App);
+
+render(<WrappedApp />, document.getElementById('root'));

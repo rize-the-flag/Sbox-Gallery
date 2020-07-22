@@ -1,8 +1,17 @@
 import React from 'react';
+import Gallery from './Gallery';
+import { Loader } from './Loader';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
-
-export const App = ({currentUser}) => {
+export const App = ( {userProfile} ) => {
   return (
-    <h1>{`Добро пожаловать: ${currentUser.name}`}</h1>
-  )
-}
+    <Provider store = {store}>
+      {
+        userProfile['id']
+          ? <Gallery/>
+          : <Loader/>
+      }
+    </Provider>
+  );
+};

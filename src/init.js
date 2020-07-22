@@ -5,7 +5,7 @@ import {
 
 export async function init() {
   const unsplashApiInstance = new UnsplashAPI();
-  const matches = location.search.match( /^\?code=(?<code>.+)$/ );
+
   const appStorageItem = JSON.parse( localStorage.getItem( APP_LOCAL_STORAGE_NAME ) );
   const bearerToken = appStorageItem ? appStorageItem['auth']['bearerToken'] : '';
 
