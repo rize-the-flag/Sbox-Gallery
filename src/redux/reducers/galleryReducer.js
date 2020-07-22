@@ -19,6 +19,7 @@ export const galleryReducer = createReducer(initialState, {
   },
   [fetchingImagesCompleted]: (state, {payload}) => {
     state.images = [...state.images, ...payload.images];
+    state.isLoading = false;
   },
   [fetchingImagesError]: (state, {payload}) => {
     state.error = payload.error;
