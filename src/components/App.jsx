@@ -1,5 +1,5 @@
 import React from 'react';
-import Gallery from './Gallery';
+import Gallery from '../containers/Gallery';
 import { Loader } from './Loader';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';

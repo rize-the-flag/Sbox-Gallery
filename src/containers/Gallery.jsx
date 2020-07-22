@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { ImageCard } from './ImageCard';
+import { ImageCard } from '../components/ImageCard';
 import { getImages } from '../redux/thunks/galleryThunks';
-import { Loader } from './Loader';
+import { Loader } from '../components/Loader';
 import { APP_LOAD_IMAGE_COUNT } from '../constants';
 
 
