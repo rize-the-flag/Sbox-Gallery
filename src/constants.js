@@ -4,6 +4,6 @@ export const UNSPLASH_SCOPE = ['public', 'write_likes'];
 export const UNSPLASH_CALLBACK_URL = `http://localhost:8081`;
 
 export const APP_LOCAL_STORAGE_NAME = 'Sbox-gallery';
-export const APP_LOAD_IMAGE_COUNT = 3;
+export const APP_LOAD_IMAGE_COUNT = 30;
 export const APP_START_FROM_PAGE = 1;
 export const APP_GALLERY_COLUMNS_COUNT = 3;

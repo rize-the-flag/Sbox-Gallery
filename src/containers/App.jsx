@@ -27,7 +27,7 @@ export const App = () => {
 
   useEffect(()=>{
     authentication()
-      .then(userData => dispatch(authSuccess(userData.id, userData.username)))
+      .then( ({id, name, profile_image: profileImage}) => dispatch(authSuccess(id, name, profileImage)))
       .catch(error => dispatch(authFailure(error)));
   },[])
 

@@ -6,7 +6,8 @@ const initialState = {
   isAuthenticated: false,
   user: {
     id: '',
-    username: '',
+    name: '',
+    profileImage: {}
   }
 }
 
