@@ -1,6 +1,9 @@
 import Unsplash, { toJson } from 'unsplash-js';
 
-import { getLocalBearerToken, setLocalBearerToken } from './localStorageAPI';
+import {
+  getLocalBearerToken,
+  setLocalBearerToken
+} from './localStorageAPI';
 
 import {
   UNSPLASH_ACCESS_TOKEN,
@@ -8,11 +11,13 @@ import {
   UNSPLASH_SECRET_TOKEN,
   UNSPLASH_SCOPE,
   APP_LOCAL_STORAGE_NAME,
+  APP_START_FROM_PAGE,
+  APP_LOAD_IMAGE_COUNT,
 } from '../constants';
 
 
 export class UnsplashAPI extends Unsplash {
-  constructor( options = {}) {
+  constructor( options = {} ) {
     options.bearerToken = options.bearerToken || '';
     options.accessKey = options.accessKey || UNSPLASH_ACCESS_TOKEN;
     options.secret = options.secret || UNSPLASH_SECRET_TOKEN;
@@ -45,8 +50,11 @@ export class UnsplashAPI extends Unsplash {
     return await toJson( request );
   }
 
-  async getPhotos(page = 1, perPage = 10, orderBy = 'latest') {
-    const response = await this.photos.listPhotos(page, perPage);
+  async getPhotos(
+    page = APP_START_FROM_PAGE,
+    perPage = APP_LOAD_IMAGE_COUNT,
+    orderBy = 'latest' ) {
+    const response = await this.photos.listPhotos( page, perPage, orderBy );
     return await toJson( response );
   }
 

@@ -1,58 +1,68 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { ImageCard } from '../components/ImageCard';
-import { fetchImages, getImages } from '../redux/thunks/galleryThunks';
+import { getImages } from '../redux/thunks/galleryThunks';
 import { Loader } from '../components/Loader';
-import { APP_LOAD_IMAGE_COUNT } from '../constants';
+import { APP_GALLERY_COLUMNS_COUNT, APP_LOAD_IMAGE_COUNT } from '../constants';
 
+export const Gallery = () => {
+  const column1 = [];
+  const column2 = [];
+  const column3 = [];
 
-const Gallery = ( {images, currentPage, isLoading, fetchImages, error} ) => {
+  const dispatch = useDispatch();
+  const images = useSelector(state=>state.gallery.images);
+  const isLoading = useSelector(state=>state.gallery.isLoading);
+  const currentPage = useSelector(state=>state.gallery.currentPage);
 
   useEffect( () => {
-    fetchImages( currentPage, APP_LOAD_IMAGE_COUNT );
+    dispatch(getImages( currentPage, APP_LOAD_IMAGE_COUNT ));
   }, [] );
 
-  const items = images.map( ( item ) => {
+  const items = images.map( ( item, index ) => {
+    const {
+      id,
+      likes,
+      liked_by_user: likedByUser,
+      alt_description: altDescription,
+      urls,
+      user: {
+        id: userId,
+        username: userName
+      }} = item;
+
     return (
-      <li key = {item.id}>
-        <ImageCard
-          urls = {item.urls}
-          userId = {item.user.id}
-          userName = {item.user.name}
-          likes = {item.likes}
-          likedByUser = {item.liked_by_user}
-          altDescription = {item.alt_description}
-        />
-      </li>
+      <ImageCard
+        key = {id}
+        userId = {userId}
+        userName = {userName}
+        urls = {urls}
+        likes = {likes}
+        likedByUser = {likedByUser}
+        altDescription = {altDescription}
+        index = {index}
+      />
     );
   } );
 
+  for ( let i = 0; i <= items.length - APP_GALLERY_COLUMNS_COUNT; i += APP_GALLERY_COLUMNS_COUNT ) {
+    column1.push( items[i] );
+    column2.push( items[i + 1] );
+    column3.push( items[i + 2] );
+  }
+
   return (
     <>
-      { error && <h1>{error}</h1> }
-      <ul className = "container">{items}</ul>
-      <button
-        onClick = {ev => fetchImages( ++currentPage, APP_LOAD_IMAGE_COUNT )}
-      >
+      <main className = "container">
+        <div>{column1}</div>
+        <div>{column2}</div>
+        <div>{column3}</div>
+      </main>
+      <button onClick = {ev => dispatch(getImages( currentPage + 1, APP_LOAD_IMAGE_COUNT ))}>
         load more (just for testing)
       </button>
       {isLoading && <Loader/>}
     </>
   );
 };
-
-const mapStateToProps = ( state ) => {
-  return {
-    images: state.gallery.images,
-    currentPage: state.gallery.currentPage,
-    isLoading: state.gallery.isLoading,
-    error: state.gallery.error
-  };
-};
-
-const mapDispatchToProps = {
-  fetchImages
-};
-
-export default connect( mapStateToProps, mapDispatchToProps )( Gallery );

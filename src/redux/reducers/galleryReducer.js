@@ -1,9 +1,8 @@
 import {
-  fetchingImages,
-  fetchingImagesCompleted,
-  fetchingImagesError,
+  FETCHING_COMPLETED,
+  FETCHING_ERROR,
+  FETCHING_IMAGES
 } from '../actions/galleryActions';
-import { createReducer } from '@reduxjs/toolkit';
 
 const initialState = {
   currentPage: 1,
@@ -12,17 +11,24 @@ const initialState = {
   error: false
 };
 
-
-export const galleryReducer = createReducer(initialState, {
-  [fetchingImages]: (state) => {
-    state.isLoading = true;
-  },
-  [fetchingImagesCompleted]: (state, {payload}) => {
-    state.images = [...state.images, ...payload.images];
-    state.isLoading = false;
-  },
-  [fetchingImagesError]: (state, {payload}) => {
-    state.error = payload.error;
+export function galleryReducer( state = initialState, action ) {
+  switch ( action.type ) {
+    case FETCHING_COMPLETED:
+      return {
+        images: [...state.images, ...action.images],
+        currentPage: action.page,
+        isLoading: false
+      };
+    case FETCHING_IMAGES:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case FETCHING_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
   }
-})
-
+  return state;
+}

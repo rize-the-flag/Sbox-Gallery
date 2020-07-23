@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
+import { store } from './redux/store';
 import '@babel/polyfill';
 
-import { App } from './components/App';
+import { App } from './containers/App';
 import './scss/styles.scss';
-import { withAuth } from './HOCs/withAuth';
+import { Provider } from 'react-redux';
 
 
-const WrappedApp = withAuth(App);
 
-render(<WrappedApp />, document.getElementById('root'));
+render(
+  <Provider store = {store}>
+    <App/>
+  </Provider>, document.getElementById( 'root' ) );
