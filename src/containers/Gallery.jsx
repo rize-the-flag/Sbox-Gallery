@@ -42,7 +42,7 @@ export const Gallery = () => {
         userId = {userId}
         userName = {userName}
         profileLink = {profileLink}
-        dateCreated = {new Date(dateCreated)}
+        dateCreated = {dateCreated}
         urls = {urls}
         likes = {likes}
         likedByUser = {likedByUser}

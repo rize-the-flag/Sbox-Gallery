@@ -6,7 +6,7 @@ export const ImageCard = ( {urls, altDescription, likes, userName, profileLink, 
       <img src = {urls.small} alt = {altDescription}/>
       <div>
         <a href = {profileLink}>{userName}</a>
-        <time datetime = {dateCreated}>{dateCreated.toLocaleDateString()}</time>
+        <time dateTime = {dateCreated}>{new Date(dateCreated).toLocaleDateString()}</time>
         <button>Likes: {likes}</button>
       </div>
     </figure>
