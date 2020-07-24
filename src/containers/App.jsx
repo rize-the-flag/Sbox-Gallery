@@ -9,7 +9,8 @@ import { authFailure, authSuccess } from '../redux/actions/authActions';
 export const App = () => {
 
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)
+  const isAuthenticated = useSelector(state=>state.auth.isAuthenticated);
+  const error = useSelector(state=>state.auth.error);
 
   async function authentication() {
     const queryParams = location.search.match( /\?code=(?<code>.+)/ );
@@ -28,11 +29,13 @@ export const App = () => {
   useEffect(()=>{
     authentication()
       .then( ({id, name, profile_image: profileImage}) => dispatch(authSuccess(id, name, profileImage)))
-      .catch(error => dispatch(authFailure(error)));
+      .catch(error => dispatch(authFailure(error.toString())));
   },[])
 
   return (
-      isAuthenticated
+    error
+      ? <p>{error}</p>
+      : isAuthenticated
           ? <Gallery/>
           : <Loader />
   );

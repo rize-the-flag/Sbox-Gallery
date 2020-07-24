@@ -1,6 +1,6 @@
-export const FETCHING_IMAGES = 'GALLERY/LOADING_IN_PROGRESS';
-export const FETCHING_COMPLETED = 'GALLERY/LOADING_COMPLETED';
-export const FETCHING_ERROR = 'GALLERY/LOADING_ERROR';
+export const FETCHING_IMAGES = 'GALLERY/FETCHING_IMAGES';
+export const FETCHING_COMPLETED = 'GALLERY/FETCHING_COMPLETED';
+export const FETCHING_ERROR = 'GALLERY/FETCHING_ERROR';
 
 export const fetchingCompleted = (page, images) => ({type: FETCHING_COMPLETED, page, images});
 export const fetchingInProgress = () => ({type: FETCHING_IMAGES});

@@ -15,6 +15,7 @@ export function galleryReducer( state = initialState, action ) {
   switch ( action.type ) {
     case FETCHING_COMPLETED:
       return {
+        ...state,
         images: [...state.images, ...action.images],
         currentPage: action.page,
         isLoading: false

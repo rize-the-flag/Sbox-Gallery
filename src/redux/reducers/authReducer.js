@@ -4,6 +4,7 @@ import {
 
 const initialState = {
   isAuthenticated: false,
+  error: false,
   user: {
     id: '',
     name: '',
