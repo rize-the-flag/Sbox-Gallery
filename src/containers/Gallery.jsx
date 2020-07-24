@@ -27,9 +27,13 @@ export const Gallery = () => {
       liked_by_user: likedByUser,
       alt_description: altDescription,
       urls,
+      created_at: dateCreated,
       user: {
         id: userId,
-        username: userName
+        username: userName,
+        links: {
+          html: profileLink
+        }
       }} = item;
 
     return (
@@ -37,6 +41,8 @@ export const Gallery = () => {
         key = {id}
         userId = {userId}
         userName = {userName}
+        profileLink = {profileLink}
+        dateCreated = {new Date(dateCreated)}
         urls = {urls}
         likes = {likes}
         likedByUser = {likedByUser}
