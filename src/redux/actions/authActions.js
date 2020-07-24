@@ -1,8 +1,7 @@
-export const AUTH_SUCCESS = 'AUTH/AUTH_SUCCESS';
-export const AUTH_FAILURE = 'AUTH/AUTH_FAILURE';
+import { AUTH_SUCCESS } from './actionTypes';
 
-export const authSuccess = ( id, name, profileImage ) => ( {
+export const authSuccess = ( userProfile ) => ( {
   type: AUTH_SUCCESS,
-  payload: {id, name, profileImage}
+  payload: userProfile
 } );
-export const authFailure = ( error ) => ( {type: AUTH_FAILURE, payload: error} );
+

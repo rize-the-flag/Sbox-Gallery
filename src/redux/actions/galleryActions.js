@@ -1,7 +1,8 @@
-export const FETCHING_IMAGES = 'GALLERY/FETCHING_IMAGES';
-export const FETCHING_COMPLETED = 'GALLERY/FETCHING_COMPLETED';
-export const FETCHING_ERROR = 'GALLERY/FETCHING_ERROR';
+import {
+  FETCHING_IMAGES,
+  FETCHING_IMAGES_COMPLETED,
+  FETCHING_IMAGES_ERROR } from './actionTypes';
 
-export const fetchingCompleted = (page, images) => ({type: FETCHING_COMPLETED, page, images});
-export const fetchingInProgress = () => ({type: FETCHING_IMAGES});
-export const fetchingError = (error) => ({type: FETCHING_ERROR, error});
+export const fetchingImagesCompleted = (page, images) => ({type: FETCHING_IMAGES_COMPLETED, page, images});
+export const fetchingImagesInProgress = () => ({type: FETCHING_IMAGES});
+export const fetchingImagesError = (error) => ({type: FETCHING_IMAGES_ERROR, error});

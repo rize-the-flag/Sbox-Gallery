@@ -1,8 +1,8 @@
 import {
-  FETCHING_COMPLETED,
-  FETCHING_ERROR,
+  FETCHING_IMAGES_COMPLETED,
+  FETCHING_IMAGES_ERROR,
   FETCHING_IMAGES
-} from '../actions/galleryActions';
+} from '../actions/actionTypes';
 
 const initialState = {
   currentPage: 1,
@@ -13,7 +13,7 @@ const initialState = {
 
 export function galleryReducer( state = initialState, action ) {
   switch ( action.type ) {
-    case FETCHING_COMPLETED:
+    case FETCHING_IMAGES_COMPLETED:
       return {
         ...state,
         images: [...state.images, ...action.images],
@@ -25,7 +25,7 @@ export function galleryReducer( state = initialState, action ) {
         ...state,
         isLoading: true
       };
-    case FETCHING_ERROR:
+    case FETCHING_IMAGES_ERROR:
       return {
         ...state,
         error: action.error

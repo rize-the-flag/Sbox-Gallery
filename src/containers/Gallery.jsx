@@ -20,34 +20,12 @@ export const Gallery = () => {
     dispatch(getImages( currentPage, APP_LOAD_IMAGE_COUNT ));
   }, [] );
 
-  const items = images.map( ( item, index ) => {
-    const {
-      id,
-      likes,
-      liked_by_user: likedByUser,
-      alt_description: altDescription,
-      urls,
-      created_at: dateCreated,
-      user: {
-        id: userId,
-        username: userName,
-        links: {
-          html: profileLink
-        }
-      }} = item;
-
+  const items = images.map( ( item ) => {
+    const { id } = item;
     return (
       <ImageCard
         key = {id}
-        userId = {userId}
-        userName = {userName}
-        profileLink = {profileLink}
-        dateCreated = {dateCreated}
-        urls = {urls}
-        likes = {likes}
-        likedByUser = {likedByUser}
-        altDescription = {altDescription}
-        index = {index}
+        {...item}
       />
     );
   } );

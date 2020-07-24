@@ -25,7 +25,7 @@ module.exports = {
     paths: PATHS,
   },
   entry: {
-    app: PATHS.src,
+    app: ['babel-polyfill', PATHS.src],
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,

@@ -16,7 +16,7 @@ import {
 } from '../constants';
 
 
-export class UnsplashAPI extends Unsplash {
+class UnsplashAPI extends Unsplash {
   constructor( options = {} ) {
     options.bearerToken = options.bearerToken || '';
     options.accessKey = options.accessKey || UNSPLASH_ACCESS_TOKEN;
@@ -63,5 +63,4 @@ export class UnsplashAPI extends Unsplash {
   }
 }
 
-
-
+export default new UnsplashAPI();

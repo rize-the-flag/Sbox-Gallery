@@ -1,15 +1,13 @@
-import { UnsplashAPI } from '../../API/unsplashAPI';
-import { getLocalBearerToken } from '../../API/localStorageAPI';
+import apiInstance from '../../API/unsplashAPI';
 import {
-  fetchingCompleted,
-  fetchingError,
-  fetchingInProgress } from '../actions/galleryActions';
+  fetchingImagesCompleted,
+  fetchingImagesError,
+  fetchingImagesInProgress } from '../actions/galleryActions';
 
 export const getImages = (page, perPage) => dispatch => {
-  const apiInstance = new UnsplashAPI({bearerToken: getLocalBearerToken()});
-  dispatch( fetchingInProgress() );
+  dispatch( fetchingImagesInProgress() );
   apiInstance.getPhotos(page, perPage)
-    .then(images => dispatch( fetchingCompleted( page, images)))
-    .catch(error => dispatch( fetchingError( error.toString())));
+    .then(images => dispatch( fetchingImagesCompleted( page, images)))
+    .catch(error => dispatch( fetchingImagesError( error.toString())));
 }
 
