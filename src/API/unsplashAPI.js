@@ -22,7 +22,6 @@ export class UnsplashAPI extends Unsplash {
     options.accessKey = options.accessKey || UNSPLASH_ACCESS_TOKEN;
     options.secret = options.secret || UNSPLASH_SECRET_TOKEN;
     options.callbackUrl = options.callbackUrl || UNSPLASH_CALLBACK_URL;
-    console.log('UNSPLASH CONSTRUCTOR CALLED');
     super( options );
   }
 

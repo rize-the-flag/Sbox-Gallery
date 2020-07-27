@@ -5,7 +5,7 @@ import {
 } from '../actions/actionTypes';
 
 const initialState = {
-  currentPage: 1,
+  currentPage: 0,
   images: [],
   isLoading: false,
   error: false
