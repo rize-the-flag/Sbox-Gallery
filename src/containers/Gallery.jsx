@@ -7,43 +7,38 @@ import { Loader } from '../components/Loader';
 import { APP_GALLERY_COLUMNS_COUNT, APP_LOAD_IMAGE_COUNT } from '../constants';
 
 export const Gallery = () => {
-  const column1 = [];
-  const column2 = [];
-  const column3 = [];
 
   const dispatch = useDispatch();
-  const images = useSelector(state=>state.gallery.images);
-  const isLoading = useSelector(state=>state.gallery.isLoading);
-  const currentPage = useSelector(state=>state.gallery.currentPage);
+  const images = useSelector( state => state.gallery.images );
+  const isLoading = useSelector( state => state.gallery.isLoading );
+  const currentPage = useSelector( state => state.gallery.currentPage );
+
+  const loadMoreImages = () => {
+    dispatch( getImages( currentPage + 1, APP_LOAD_IMAGE_COUNT ) );
+  };
 
   useEffect( () => {
-    dispatch(getImages( currentPage, APP_LOAD_IMAGE_COUNT ));
+    loadMoreImages();
   }, [] );
 
   const items = images.map( ( item ) => {
-    const { id } = item;
+    const {id} = item;
     return (
       <ImageCard
         key = {id}
-        {...item}
+        imageData = {item}
       />
     );
   } );
 
-  for ( let i = 0; i <= items.length - APP_GALLERY_COLUMNS_COUNT; i += APP_GALLERY_COLUMNS_COUNT ) {
-    column1.push( items[i] );
-    column2.push( items[i + 1] );
-    column3.push( items[i + 2] );
-  }
-
   return (
     <>
-      <main className = "container">
-        <div>{column1}</div>
-        <div>{column2}</div>
-        <div>{column3}</div>
+      <main className = 'container'>
+        <div>{items.map( ( _, i, a ) => a[i * APP_GALLERY_COLUMNS_COUNT]).filter( e => e )}</div>
+        <div>{items.map( ( _, i, a ) => a[i * APP_GALLERY_COLUMNS_COUNT + 1] ).filter( e => e )}</div>
+        <div>{items.map( ( _, i, a ) => a[i * APP_GALLERY_COLUMNS_COUNT + 2] ).filter( e => e )}</div>
       </main>
-      <button onClick = {ev => dispatch(getImages( currentPage + 1, APP_LOAD_IMAGE_COUNT ))}>
+      <button onClick = {loadMoreImages}>
         load more (just for testing)
       </button>
       {isLoading && <Loader/>}

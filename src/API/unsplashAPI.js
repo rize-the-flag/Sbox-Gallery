@@ -16,13 +16,13 @@ import {
 } from '../constants';
 
 
-class UnsplashAPI extends Unsplash {
+export class UnsplashAPI extends Unsplash {
   constructor( options = {} ) {
     options.bearerToken = options.bearerToken || '';
     options.accessKey = options.accessKey || UNSPLASH_ACCESS_TOKEN;
     options.secret = options.secret || UNSPLASH_SECRET_TOKEN;
     options.callbackUrl = options.callbackUrl || UNSPLASH_CALLBACK_URL;
-
+    console.log('UNSPLASH CONSTRUCTOR CALLED');
     super( options );
   }
 
@@ -61,6 +61,20 @@ class UnsplashAPI extends Unsplash {
   getAuthenticationUrl( scope = UNSPLASH_SCOPE ) {
     return this.auth.getAuthenticationUrl( scope );
   }
+
+  async authentication() {
+    const queryParams = location.search.match( /\?code=(?<code>.+)/ );
+
+    if (!this.isAuthenticated()) {
+      if (!queryParams) {
+        location.assign( this.getAuthenticationUrl() );
+        return;
+      }
+      await this.doAuth( queryParams['groups']['code'] );
+    }
+    return await this.getCurrentUserProfile( getLocalBearerToken() );
+  }
+
 }
 
 export default new UnsplashAPI();
