@@ -26,12 +26,6 @@ export class UnsplashAPI extends Unsplash {
     super( options );
   }
 
-
-  isAuthenticated() {
-    const bearerToken = getLocalBearerToken();
-    return !!bearerToken;
-  }
-
   checkError( request ) {
     if (request.ok) return null;
     if (request.headers.get( 'X-RateLimit-remaining' ) === '0') return ERROR_RATE_LIMIT_REACHED;
@@ -73,14 +67,15 @@ export class UnsplashAPI extends Unsplash {
 
   async authentication() {
     const queryParams = location.search.match( /\?code=(?<code>.+)/ );
-
-    if (!this.isAuthenticated()) {
+    const localBearerToken = getLocalBearerToken();
+    if (!localBearerToken) {
       if (!queryParams) {
         location.assign( this.getAuthenticationUrl() );
         return;
       }
       await this.doAuth( queryParams['groups']['code'] );
     }
+    this.auth.setBearerToken(localBearerToken);
     return await this.getCurrentUserProfile();
   }
 }
