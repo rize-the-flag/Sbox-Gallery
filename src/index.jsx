@@ -13,6 +13,9 @@ apiInstance.authentication()
     <Provider store = {store}>
       <App/>
     </Provider>, document.getElementById( 'root' ) ) )
-  .catch( error => store.dispatch( authFailure( error ) ) );
+  .catch( error => {
+    store.dispatch( authFailure( error ) );
+    alert( error );
+  });
 
 

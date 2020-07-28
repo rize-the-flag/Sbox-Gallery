@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ImageCard } from '../components/ImageCard';
 import { getImages } from '../redux/thunks/galleryThunks';
 import { Loader } from '../components/Loader';
-import { APP_GALLERY_COLUMNS_COUNT, APP_LOAD_IMAGE_COUNT } from '../constants';
+import { APP_LOAD_IMAGE_COUNT } from '../constants';
 
 export const Gallery = () => {
 
@@ -34,9 +34,7 @@ export const Gallery = () => {
   return (
     <>
       <main className = 'container'>
-        <div>{items.map( ( _, i, a ) => a[i * APP_GALLERY_COLUMNS_COUNT]).filter( e => e )}</div>
-        <div>{items.map( ( _, i, a ) => a[i * APP_GALLERY_COLUMNS_COUNT + 1] ).filter( e => e )}</div>
-        <div>{items.map( ( _, i, a ) => a[i * APP_GALLERY_COLUMNS_COUNT + 2] ).filter( e => e )}</div>
+        {items}
       </main>
       <button onClick = {loadMoreImages}>
         load more (just for testing)

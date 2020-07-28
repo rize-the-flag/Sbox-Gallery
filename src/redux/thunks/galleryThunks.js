@@ -8,6 +8,6 @@ export const getImages = (page, perPage) => dispatch => {
   dispatch( fetchingImagesInProgress() );
   apiInstance.getPhotos(page, perPage)
     .then(images => dispatch( fetchingImagesCompleted( page, images)))
-    .catch(error => dispatch( fetchingImagesError( error.toString())));
+    .catch(error => dispatch( fetchingImagesError( error )));
 }
 

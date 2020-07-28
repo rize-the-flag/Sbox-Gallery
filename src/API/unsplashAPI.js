@@ -13,8 +13,9 @@ import {
   APP_LOCAL_STORAGE_NAME,
   APP_START_FROM_PAGE,
   APP_LOAD_IMAGE_COUNT,
+  ERROR_RATE_LIMIT_REACHED,
+  UNHANDLED_ERROR,
 } from '../constants';
-
 
 export class UnsplashAPI extends Unsplash {
   constructor( options = {} ) {
@@ -25,28 +26,37 @@ export class UnsplashAPI extends Unsplash {
     super( options );
   }
 
-  async doAuth( code ) {
-    const request = await this.auth.userAuthentication( code );
-    if (!request.ok) {
-      throw new Error( request.status );
-    }
-    const json = await toJson( request );
-    setLocalBearerToken( APP_LOCAL_STORAGE_NAME, json.access_token );
-    return json.access_token;
-  }
 
   isAuthenticated() {
     const bearerToken = getLocalBearerToken();
     return !!bearerToken;
   }
 
-  async getCurrentUserProfile( bearerToken ) {
-    this.auth.setBearerToken( bearerToken );
-    const request = await this.currentUser.profile();
-    if (!request.ok) {
-      throw new Error( request.status );
+  checkError( request ) {
+    if (request.ok) return null;
+    if (request.headers.get( 'X-RateLimit-remaining' ) === '0') return ERROR_RATE_LIMIT_REACHED;
+    return UNHANDLED_ERROR;
+  }
+
+  async doAuth( code ) {
+    const response = await this.auth.userAuthentication( code );
+    const error = this.checkError( response );
+    if (error) {
+      throw new Error( response.status + ' ' + error );
     }
-    return await toJson( request );
+    const json = await toJson( response );
+    this.auth.setBearerToken( json.access_token );
+    setLocalBearerToken( APP_LOCAL_STORAGE_NAME, json.access_token );
+    return json.access_token;
+  }
+
+  async getCurrentUserProfile() {
+    const response = await this.currentUser.profile();
+    const error = this.checkError( response );
+    if (error) {
+      throw new Error( response.status + ' ' + error );
+    }
+    return await toJson( response );
   }
 
   async getPhotos(
@@ -71,9 +81,8 @@ export class UnsplashAPI extends Unsplash {
       }
       await this.doAuth( queryParams['groups']['code'] );
     }
-    return await this.getCurrentUserProfile( getLocalBearerToken() );
+    return await this.getCurrentUserProfile();
   }
-
 }
 
 export default new UnsplashAPI();
