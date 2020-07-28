@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ImageCard } from '../components/ImageCard';
@@ -36,7 +36,7 @@ export const Gallery = () => {
       <main className = 'container'>
         {items}
       </main>
-      <button onClick = {loadMoreImages}>
+      <button className = 'loadMoreButton' onClick = {loadMoreImages}>
         load more (just for testing)
       </button>
       {isLoading && <Loader/>}

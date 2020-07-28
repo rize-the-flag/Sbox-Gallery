@@ -8,7 +8,7 @@ const initialState = {
   currentPage: 0,
   images: [],
   isLoading: false,
-  error: false
+  error: null
 };
 
 export function galleryReducer( state = initialState, action ) {
