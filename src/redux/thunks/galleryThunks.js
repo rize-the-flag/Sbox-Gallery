@@ -2,7 +2,10 @@ import apiInstance from '../../API/unsplashAPI';
 import {
   fetchingImagesCompleted,
   fetchingImagesError,
-  fetchingImagesInProgress } from '../actions/galleryActions';
+  fetchingImagesInProgress,
+  togglePhotoLike
+} from '../actions/galleryActions';
+import { toJson } from 'unsplash-js';
 
 export const getImages = (page, perPage) => dispatch => {
   dispatch( fetchingImagesInProgress() );
@@ -11,3 +14,14 @@ export const getImages = (page, perPage) => dispatch => {
     .catch(error => dispatch( fetchingImagesError( error )));
 }
 
+export const setLike = (id) => dispatch => {
+  apiInstance.photos.likePhoto(id)
+    .then(toJson)
+    .then(json => dispatch( togglePhotoLike( json)))
+}
+
+export const unsetLike = (id) => dispatch => {
+  apiInstance.photos.unlikePhoto(id)
+    .then(toJson)
+    .then(json => dispatch(togglePhotoLike(json)))
+}

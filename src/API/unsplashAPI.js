@@ -48,7 +48,7 @@ export class UnsplashAPI extends Unsplash {
     const response = await this.currentUser.profile();
     const error = this.checkError( response );
     if (error) {
-      throw new Error( response.status + ' ' + error );
+      throw new Error( `${response.status} ${error} `);
     }
     return await toJson( response );
   }
@@ -58,6 +58,10 @@ export class UnsplashAPI extends Unsplash {
     perPage = APP_LOAD_IMAGE_COUNT,
     orderBy = 'latest' ) {
     const response = await this.photos.listPhotos( page, perPage, orderBy );
+    const error = this.checkError( response );
+    if (error) {
+      throw new Error( `${response.status} ${error} `);
+    }
     return await toJson( response );
   }
 

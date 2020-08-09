@@ -3,7 +3,7 @@ import './loader.scss';
 
 export const Loader = () => {
   return (
-    <div className = 'overlay'>
+    <div className = 'overlay overlay--content-center'>
       <div className = 'lds-roller'>
         <div/>
         <div/>

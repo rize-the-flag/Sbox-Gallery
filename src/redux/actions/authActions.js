@@ -1,4 +1,6 @@
-import { AUTH_FAILURE, AUTH_SUCCESS } from './actionTypes';
+import {
+  AUTH_FAILURE,
+  AUTH_SUCCESS } from './actionTypes';
 
 export const authSuccess = ( userProfile ) => ( {
   type: AUTH_SUCCESS,
