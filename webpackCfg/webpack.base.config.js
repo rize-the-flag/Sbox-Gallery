@@ -14,8 +14,6 @@ const PATHS = {
   postCss: path.join( __dirname, `./` ),
 };
 
-console.log( path.join( __dirname, `/` ) );
-
 module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.scss', 'css'],
@@ -29,7 +27,7 @@ module.exports = {
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
     path: PATHS.dist,
-    publicPath: '/build'
+    publicPath: '/'
   },
   optimization: {
     minimize: true,
