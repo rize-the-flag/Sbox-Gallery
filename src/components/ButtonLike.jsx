@@ -7,7 +7,7 @@ export const ButtonLike = ( {onClick, likesCount, isLiked, classes} ) => {
                                    'btn-like': true,
                                    'btn-like--liked': isLiked,
                                  }, classes );
-  return (
+    return (
     <button className = {btnClasses} onClick = {onClick}>
       <svg xmlns = 'http://www.w3.org/2000/svg' viewBox = '0 0 1000 1000'>
         <path

@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { DateTime } from './DateTime';
 import { UserAvatar } from './UserAvatar';
 import { ButtonLike } from './ButtonLike';
+import { toggleLike } from '../redux/thunks/galleryThunks';
+import { useDispatch } from 'react-redux';
 
-export const ImageCard = ( {id, imageData, handleBtnLikeClick} ) => {
-
+export const ImageCard = ( {id, imageData} ) => {
+  const dispatch = useDispatch();
   const {
     urls: {
       small,
@@ -20,7 +22,6 @@ export const ImageCard = ( {id, imageData, handleBtnLikeClick} ) => {
       }
     }, created_at, likes, alt_description, liked_by_user
   } = imageData;
-
 
   return (
     <figure className = 'card'>
@@ -37,7 +38,7 @@ export const ImageCard = ( {id, imageData, handleBtnLikeClick} ) => {
             <ButtonLike
               likesCount = {likes}
               isLiked = {liked_by_user}
-              onClick = {ev => handleBtnLikeClick(id, liked_by_user)}
+              onClick = {() => dispatch(toggleLike(id, liked_by_user))}
             />
           </div>
           <DateTime

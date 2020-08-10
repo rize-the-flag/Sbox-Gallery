@@ -25,3 +25,9 @@ export const unsetLike = (id) => dispatch => {
     .then(toJson)
     .then(json => dispatch(togglePhotoLike(json)))
 }
+
+export const toggleLike = (id, isLiked) => dispatch => {
+  isLiked
+    ? dispatch( unsetLike( id ) )
+    : dispatch( setLike( id ) );
+}

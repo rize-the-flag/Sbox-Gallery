@@ -2,7 +2,7 @@ import {
   FETCHING_IMAGES,
   FETCHING_IMAGES_COMPLETED,
   FETCHING_IMAGES_ERROR,
-  SET_NEXT_PAGE,
+  SET_PAGE,
   TOGGLE_PHOTO_LIKE
 } from '../actions/actionTypes';
 
@@ -15,7 +15,7 @@ const initialState = {
 
 export function galleryReducer( state = initialState, action ) {
   switch ( action.type ) {
-    case SET_NEXT_PAGE:
+    case SET_PAGE:
       return {
         ...state,
         currentPage: action.page

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPhoto } from '../redux/thunks/imageViewThunks';
 import { Loader } from '../components/Loader';
 import { ImageView } from '../components/ImageView';
 import { resetPhotoHasLoaded } from '../redux/actions/imageViewActions';
+import { toggleLike } from '../redux/thunks/galleryThunks';
 
 
-export const ImageViewContainer = ( {handleBtnLikeClick} ) => {
-  const history = useHistory();
+export const ImageViewContainer = () => {
   const dispatch = useDispatch();
   const {imgId: id} = useParams();
 
@@ -23,17 +23,12 @@ export const ImageViewContainer = ( {handleBtnLikeClick} ) => {
     };
   }, [id] );
 
-  const goHome = ( ev ) => {
-    history.push('/');
-  };
-
   if (!hasLoaded) return <Loader/>;
 
   return (
     <ImageView
       image = {image}
-      handleCloseBtnClick = {goHome}
-      handleBtnLikeClick = {ev => handleBtnLikeClick( id, isLiked )}
+      toggleLike = {ev => dispatch(toggleLike( id, isLiked ))}
     />
   );
 };

@@ -9,17 +9,16 @@ import './scss/styles.scss';
 import { BrowserRouter } from 'react-router-dom';
 
 apiInstance.authentication()
-  .then( userProfile => store.dispatch( authSuccess( userProfile ) ) )
-  .then( () => render(
-    <Provider store = {store}>
-      <BrowserRouter>
-        <Gallery/>
-      </BrowserRouter>
-    </Provider>, document.getElementById( 'root' )))
+  .then( userProfile => {
+    store.dispatch( authSuccess( userProfile ) );
+    render(
+      <Provider store = {store}>
+        <BrowserRouter>
+          <Gallery/>
+        </BrowserRouter>
+      </Provider>, document.getElementById( 'root' ) );
+  } )
   .catch( error => {
     store.dispatch( authFailure( error ) );
     alert( error );
   } );
-
-
-window.stor = store;
