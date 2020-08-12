@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPhoto } from '../redux/thunks/imageViewThunks';
 import { Loader } from '../components/Loader';
 import { ImageView } from '../components/ImageView';
 import { resetPhotoHasLoaded } from '../redux/actions/imageViewActions';
 import { toggleLike } from '../redux/thunks/galleryThunks';
+import { Overlay } from '../components/Overlay';
 
 
 export const ImageViewContainer = () => {
   const dispatch = useDispatch();
   const {imgId: id} = useParams();
+  const history = useHistory();
 
   const image = useSelector( state => state.imageView.image );
   const isLiked = useSelector( state => state.imageView.image.liked_by_user );
@@ -25,10 +27,13 @@ export const ImageViewContainer = () => {
 
   if (!hasLoaded) return <Loader/>;
 
+
   return (
-    <ImageView
-      image = {image}
-      toggleLike = {ev => dispatch(toggleLike( id, isLiked ))}
-    />
+    <Overlay closeHandler = {history.goBack.bind( history )}>
+      <ImageView
+        image = {image}
+        toggleLike = {() => dispatch( toggleLike( id, isLiked ) )}
+      />
+    </Overlay>
   );
 };

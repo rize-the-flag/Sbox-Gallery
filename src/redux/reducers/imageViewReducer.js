@@ -38,9 +38,10 @@ export const imageViewReducer = ( state = initialState, action ) => {
         hasLoaded: false
       };
     case TOGGLE_PHOTO_LIKE:
+      const {likes, liked_by_user} = action.payload.photo;
       return {
         ...state,
-        image: {...state.image, ...action.payload.photo}
+        image: {...state.image, likes, liked_by_user}
       };
     default:
       return state;

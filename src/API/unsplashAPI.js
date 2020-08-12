@@ -1,20 +1,17 @@
 import Unsplash, { toJson } from 'unsplash-js';
 
-import {
-  getLocalBearerToken,
-  setLocalBearerToken
-} from './localStorageAPI';
+import { getLocalBearerToken, setLocalBearerToken } from './localStorageAPI';
 
 import {
-  UNSPLASH_ACCESS_TOKEN,
-  UNSPLASH_CALLBACK_URL,
-  UNSPLASH_SECRET_TOKEN,
-  UNSPLASH_SCOPE,
+  APP_LOAD_IMAGE_COUNT,
   APP_LOCAL_STORAGE_NAME,
   APP_START_FROM_PAGE,
-  APP_LOAD_IMAGE_COUNT,
   ERROR_RATE_LIMIT_REACHED,
   UNHANDLED_ERROR,
+  UNSPLASH_ACCESS_TOKEN,
+  UNSPLASH_CALLBACK_URL,
+  UNSPLASH_SCOPE,
+  UNSPLASH_SECRET_TOKEN,
 } from '../constants';
 
 export class UnsplashAPI extends Unsplash {
@@ -48,7 +45,7 @@ export class UnsplashAPI extends Unsplash {
     const response = await this.currentUser.profile();
     const error = this.checkError( response );
     if (error) {
-      throw new Error( `${response.status} ${error} `);
+      throw new Error( `${response.status} ${error} ` );
     }
     return await toJson( response );
   }
@@ -60,7 +57,7 @@ export class UnsplashAPI extends Unsplash {
     const response = await this.photos.listPhotos( page, perPage, orderBy );
     const error = this.checkError( response );
     if (error) {
-      throw new Error( `${response.status} ${error} `);
+      throw new Error( `${response.status} ${error} ` );
     }
     return await toJson( response );
   }
@@ -79,7 +76,8 @@ export class UnsplashAPI extends Unsplash {
       }
       await this.doAuth( queryParams['groups']['code'] );
     }
-    this.auth.setBearerToken(localBearerToken);
+    history.replaceState( null, '', UNSPLASH_CALLBACK_URL );
+    this.auth.setBearerToken( localBearerToken );
     return await this.getCurrentUserProfile();
   }
 }

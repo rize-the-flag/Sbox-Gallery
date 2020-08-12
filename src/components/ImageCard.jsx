@@ -6,9 +6,10 @@ import { ButtonLike } from './ButtonLike';
 import { toggleLike } from '../redux/thunks/galleryThunks';
 import { useDispatch } from 'react-redux';
 
-export const ImageCard = ( {id, imageData} ) => {
+export const ImageCard = ( {imageData} ) => {
   const dispatch = useDispatch();
   const {
+    id,
     urls: {
       small,
     },
@@ -20,33 +21,37 @@ export const ImageCard = ( {id, imageData} ) => {
       profile_image: {
         small: profileImage
       }
-    }, created_at, likes, alt_description, liked_by_user
+    },
+    created_at: createdAt,
+    alt_description: altDescription,
+    liked_by_user: likedByUser,
+    likes,
   } = imageData;
 
   return (
     <figure className = 'card'>
       <Link to = {`/preview/${id}`}>
-        <img src = {small} alt = {alt_description}/>
+        <img src = {small} alt = {altDescription}/>
       </Link>
-        <div className = 'card__overlay'>
-          <div className = "card__panel-top">
-            <UserAvatar
-              userName = {username}
-              profileLink = {profileLink}
-              profileImage = {profileImage}
-            />
-            <ButtonLike
-              likesCount = {likes}
-              isLiked = {liked_by_user}
-              onClick = {() => dispatch(toggleLike(id, liked_by_user))}
-            />
-          </div>
-          <DateTime
-            date = {created_at}
-            locale = 'ru-RU'
-            classes = 'card__date-created'
+      <div className = 'card__overlay'>
+        <div className = "card__panel-top">
+          <UserAvatar
+            userName = {username}
+            profileLink = {profileLink}
+            profileImage = {profileImage}
+          />
+          <ButtonLike
+            likesCount = {likes}
+            isLiked = {likedByUser}
+            onClick = {() => dispatch( toggleLike( id, likedByUser ) )}
           />
         </div>
+        <DateTime
+          date = {createdAt}
+          locale = 'ru-RU'
+          classes = 'card__date-created'
+        />
+      </div>
     </figure>
-);
+  );
 };

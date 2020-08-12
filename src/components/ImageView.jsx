@@ -18,43 +18,41 @@ export const ImageView = ( {image, toggleLike} ) => {
         small
       }
     },
-    created_at,
-    alt_description,
+    created_at: createdAt,
+    alt_description: altDescription,
     likes,
-    liked_by_user
+    liked_by_user: likedByUser
   } = image;
 
   return (
-    <div className = 'overlay overlay--content-center'>
-      <div className = 'image-view'>
-        <div className = 'image-view__top-panel'>
-          <UserAvatar
-            userName = {username}
-            profileLink = {html}
-            profileImage = {small}
+    <div className = 'image-view'>
+      <header className = 'image-view__top-panel'>
+        <UserAvatar
+          userName = {username}
+          profileLink = {html}
+          profileImage = {small}
+        />
+        <div className = 'controls'>
+          <ButtonLike
+            likesCount = {likes}
+            onClick = {toggleLike}
+            isLiked = {likedByUser}
           />
-          <div className = 'controls'>
-            <ButtonLike
-              likesCount = {likes}
-              onClick = {toggleLike}
-              isLiked = {liked_by_user}
-            />
-            <ButtonClose
-              likesCount = {likes}
-            />
-          </div>
-        </div>
-        <div className = 'image-wrapper'>
-          <img
-            src = {regular}
-            alt = {alt_description}
+          <ButtonClose
+            likesCount = {likes}
           />
         </div>
-        <DateTime
-          date = {created_at}
-          locale = {'ru-RU'}
+      </header>
+      <div className = 'image-wrapper'>
+        <img
+          src = {regular}
+          alt = {altDescription}
         />
       </div>
+      <DateTime
+        date = {createdAt}
+        locale = {'ru-RU'}
+      />
     </div>
   );
 };
