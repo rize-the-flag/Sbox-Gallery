@@ -6,7 +6,7 @@ export const UserAvatar = ( {userName, profileLink, profileImage, classes = ''} 
                                           'avatar': true,
                                         }, classes );
   return (
-    <a href = {profileLink} className = {userAvatarClasses} target = '_blank'>
+    <a href = {profileLink} className = {userAvatarClasses} target = '_blank' rel='nofollow noopener'>
       <img
            src = {profileImage}
            alt = {userName}
@@ -15,3 +15,4 @@ export const UserAvatar = ( {userName, profileLink, profileImage, classes = ''} 
     </a>
   );
 };
+

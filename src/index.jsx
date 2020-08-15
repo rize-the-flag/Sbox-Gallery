@@ -8,6 +8,7 @@ import Gallery from './containers/Gallery';
 import './scss/styles.scss';
 import { BrowserRouter } from 'react-router-dom';
 
+
 apiInstance.authentication()
   .then( userProfile => {
     store.dispatch( authSuccess( userProfile ) );

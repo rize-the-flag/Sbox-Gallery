@@ -3,14 +3,14 @@ import {
   FETCHING_IMAGES_COMPLETED,
   FETCHING_IMAGES_ERROR,
   SET_PAGE,
-  TOGGLE_PHOTO_LIKE
+  TOGGLE_PHOTO_LIKE,
 } from '../actions/actionTypes';
 
 const initialState = {
-  currentPage: 1,
+  currentPage: 0,
   images: [],
   isLoading: false,
-  error: null
+  error: null,
 };
 
 export function galleryReducer( state = initialState, action ) {
@@ -24,7 +24,7 @@ export function galleryReducer( state = initialState, action ) {
       return {
         ...state,
         images: [...state.images, ...action.images],
-        isLoading: false
+        isLoading: false,
       };
     case FETCHING_IMAGES:
       return {

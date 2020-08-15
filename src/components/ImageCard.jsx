@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { DateTime } from './DateTime';
 import { UserAvatar } from './UserAvatar';
@@ -28,6 +28,8 @@ export const ImageCard = ( {imageData} ) => {
     likes,
   } = imageData;
 
+  const onLikeToggle = useCallback(() => dispatch(toggleLike(id, likedByUser)), [id, likedByUser])
+
   return (
     <figure className = 'card'>
       <Link to = {`/preview/${id}`}>
@@ -43,7 +45,7 @@ export const ImageCard = ( {imageData} ) => {
           <ButtonLike
             likesCount = {likes}
             isLiked = {likedByUser}
-            onClick = {() => dispatch( toggleLike( id, likedByUser ) )}
+            onClick = {onLikeToggle}
           />
         </div>
         <DateTime

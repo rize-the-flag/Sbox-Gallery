@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPhoto } from '../redux/thunks/imageViewThunks';
@@ -11,11 +11,11 @@ import { Overlay } from '../components/Overlay';
 
 export const ImageViewContainer = () => {
   const dispatch = useDispatch();
-  const {imgId: id} = useParams();
+  const {id} = useParams();
   const history = useHistory();
 
   const image = useSelector( state => state.imageView.image );
-  const isLiked = useSelector( state => state.imageView.image.liked_by_user );
+  const likedByUser = useSelector( state => state.imageView.image.liked_by_user );
   const hasLoaded = useSelector( state => state.imageView.hasLoaded );
 
   useEffect( () => {
@@ -25,14 +25,15 @@ export const ImageViewContainer = () => {
     };
   }, [id] );
 
+  const onLikeToggle = useCallback(() => dispatch(toggleLike(id, likedByUser)), [id, likedByUser])
+  const closeHandler = useCallback(() => history.push('/'), [history]);
+
   if (!hasLoaded) return <Loader/>;
-
-
   return (
-    <Overlay closeHandler = {history.goBack.bind( history )}>
+    <Overlay closeHandler = {closeHandler}>
       <ImageView
         image = {image}
-        toggleLike = {() => dispatch( toggleLike( id, isLiked ) )}
+        toggleLike = {onLikeToggle}
       />
     </Overlay>
   );

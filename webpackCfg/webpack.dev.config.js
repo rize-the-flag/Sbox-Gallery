@@ -1,5 +1,5 @@
 const webpack = require( `webpack` );
-const merge = require( `webpack-merge` );
+const {merge} = require( `webpack-merge` );
 const baseWebpackConfig = require( `./webpack.base.config` );
 
 const devWebpackConfig = merge( baseWebpackConfig, {
@@ -10,7 +10,7 @@ const devWebpackConfig = merge( baseWebpackConfig, {
     port: 8081,
     overlay: true,
     historyApiFallback: {
-      index: '/build'
+      index: '/'
     },
     hot: true
   },

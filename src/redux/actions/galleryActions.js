@@ -3,7 +3,7 @@ import {
   FETCHING_IMAGES_COMPLETED,
   FETCHING_IMAGES_ERROR,
   SET_PAGE,
-  TOGGLE_PHOTO_LIKE
+  TOGGLE_PHOTO_LIKE,
 } from './actionTypes';
 
 export const fetchingImagesCompleted = ( page, images ) => ( {type: FETCHING_IMAGES_COMPLETED, page, images} );

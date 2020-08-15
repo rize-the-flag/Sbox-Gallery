@@ -1,9 +1,11 @@
 import { ImageCard } from './ImageCard';
-import React from 'react';
 import { Loader } from './Loader';
 import { Error } from './Error';
+import { useFetchImagesOnScroll } from '../redux/hooks/useFetchImagesOnScroll';
+import React from 'react';
 
-export const ImageList = ( {images, isLoading, error} ) => {
+export const ImageList = ({prevPage}) => {
+  const [images, isLoading, error] = useFetchImagesOnScroll(prevPage);
 
   const items = images.map( ( item ) => {
     const {id} = item;

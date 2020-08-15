@@ -38,6 +38,7 @@ export class UnsplashAPI extends Unsplash {
     const json = await toJson( response );
     this.auth.setBearerToken( json.access_token );
     setLocalBearerToken( APP_LOCAL_STORAGE_NAME, json.access_token );
+    history.replaceState( null, '', UNSPLASH_CALLBACK_URL );
     return json.access_token;
   }
 
@@ -76,7 +77,6 @@ export class UnsplashAPI extends Unsplash {
       }
       await this.doAuth( queryParams['groups']['code'] );
     }
-    history.replaceState( null, '', UNSPLASH_CALLBACK_URL );
     this.auth.setBearerToken( localBearerToken );
     return await this.getCurrentUserProfile();
   }
