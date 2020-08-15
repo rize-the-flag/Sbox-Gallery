@@ -5,24 +5,19 @@ import { getImages } from '../thunks/galleryThunks';
 import { APP_LOAD_IMAGE_COUNT, APP_SCROLL_LOADING_GAP } from '../../constants';
 
 
-export const useFetchImagesOnScroll = ( prevPage ) => {
+export const useFetchImagesOnScroll = ( prevPage, currentPage ) => {
   const dispatch = useDispatch();
   const images = useSelector( state => state.gallery.images );
   const isLoading = useSelector( state => state.gallery.isLoading );
-  const currentPage = useSelector( state => state.gallery.currentPage );
   const error = useSelector( state => state.gallery.error );
-
-  const loadNextImages = page => {
-      dispatch( getImages( page, APP_LOAD_IMAGE_COUNT ) );
-  };
-
-  // fetch data on app init
-  useEffect (() => {
-    if (currentPage === 0) dispatch(setPage( currentPage + 1));
-  }, [])
 
   //fetch data only when currentPage really changed
   useEffect( () => {
+
+    const loadNextImages = page => {
+      dispatch( getImages( page, APP_LOAD_IMAGE_COUNT ) );
+    };
+
     if (prevPage !== currentPage) loadNextImages(currentPage);
   }, [currentPage] );
 
