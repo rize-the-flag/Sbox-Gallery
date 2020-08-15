@@ -8,7 +8,6 @@ import { usePrevious } from '../redux/hooks/usePrevious';
 export const Gallery = () => {
   const currentPage = useSelector(state => state.gallery.currentPage);
   const prevPage = usePrevious(currentPage);
-  console.log(prevPage, currentPage);
   return (
     <>
       <Route exact path="/" render={() => <ImageList prevPage = {prevPage}/>} />
