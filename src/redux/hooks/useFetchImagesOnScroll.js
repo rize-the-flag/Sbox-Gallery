@@ -17,7 +17,6 @@ export const useFetchImagesOnScroll = ( prevPage, currentPage ) => {
     const loadNextImages = page => {
       dispatch( getImages( page, APP_LOAD_IMAGE_COUNT ) );
     };
-
     if (prevPage !== currentPage) loadNextImages(currentPage);
   }, [currentPage] );
 
@@ -34,8 +33,8 @@ export const useFetchImagesOnScroll = ( prevPage, currentPage ) => {
       window.removeEventListener( 'scroll', handleWindowScroll );
     };
 
-  }, [currentPage, isLoading, error] );
+  }, [isLoading, error] );
 
-  return [images, isLoading, error, currentPage];
+  return [images, isLoading, error];
 };
 
