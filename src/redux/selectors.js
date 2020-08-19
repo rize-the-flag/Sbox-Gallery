@@ -12,7 +12,7 @@ export const getGalleryImagesMemo = createSelector( getGalleryImages, images => 
 //image view selectors
 export const getImageView = ( state ) => state.imageView;
 export const getImageViewImage = ( state ) => getImageView( state ).image;
-export const getImageViewLikeState = ( state ) => getImageView( state ).liked_by_user;
+export const getImageViewLikeState = ( state ) => getImageViewImage( state ).liked_by_user;
 export const getImageViewLoadingState = ( state ) => getImageView( state ).hasLoaded;
 
 
