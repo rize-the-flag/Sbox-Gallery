@@ -14,7 +14,8 @@ const initialState = {
 };
 
 export const imageViewReducer = ( state = initialState, action ) => {
-  switch ( action.type ) {
+  const {type, payload} = action;
+  switch ( type ) {
     case FETCHING_PHOTO:
       return {
         ...state,
@@ -23,14 +24,14 @@ export const imageViewReducer = ( state = initialState, action ) => {
     case FETCHING_PHOTO_COMPLETED:
       return {
         ...state,
-        image: action.image,
+        image: payload,
         hasLoaded: true
       };
     case FETCHING_PHOTO_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.error
+        error: payload
       };
     case RESET_PHOTO_HAS_LOADED:
       return {
@@ -38,7 +39,7 @@ export const imageViewReducer = ( state = initialState, action ) => {
         hasLoaded: false
       };
     case TOGGLE_PHOTO_LIKE:
-      const {likes, liked_by_user} = action.payload.photo;
+      const {likes, liked_by_user} = payload.photo;
       return {
         ...state,
         image: {...state.image, likes, liked_by_user}

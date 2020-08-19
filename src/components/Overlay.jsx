@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import classNames from 'classnames';
 
-export const Overlay = ( {classes = '', children, closeHandler} ) => {
+export const Overlay = ( { children, closeHandler, classes = ''} ) => {
 
   let overlayRef = null;
 
