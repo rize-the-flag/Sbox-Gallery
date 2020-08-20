@@ -39,6 +39,7 @@
     "sass-loader": "^9.0.3",
     "style-loader": "^1.2.1",
     "stylelint": "^13.6.1",
+    "stylelint-declaration-block-no-ignored-properties": "^2.3.0",
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.18.0",
     "stylelint-webpack-plugin": "^2.1.0",
