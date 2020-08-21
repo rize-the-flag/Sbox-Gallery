@@ -4,7 +4,8 @@ import { ButtonLike } from './ButtonLike';
 import { ButtonClose } from './ButtonClose';
 import { DateTime } from './DateTime';
 
-export const ImageView = ( {image, toggleLike} ) => {
+export const ImageView = ( {image, toggleLike, onClose} ) => {
+
   const {
     urls: {
       regular,
@@ -40,6 +41,7 @@ export const ImageView = ( {image, toggleLike} ) => {
           />
           <ButtonClose
             likesCount = {likes}
+            onClick = {onClose}
           />
         </div>
       </header>

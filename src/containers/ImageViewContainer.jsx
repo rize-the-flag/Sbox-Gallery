@@ -27,7 +27,7 @@ export const ImageViewContainer = () => {
   }, [id] );
 
   const onLikeToggle = useCallback( () => dispatch( toggleLike( id, likedByUser ) ), [id, likedByUser] );
-  const closeHandler = useCallback( () => history.push( '/' ), [history] );
+  const closeHandler = useCallback( () => history.goBack(), [history] );
 
   if (!hasLoaded) return <Loader/>;
   return (
@@ -35,6 +35,7 @@ export const ImageViewContainer = () => {
       <ImageView
         image = {image}
         toggleLike = {onLikeToggle}
+        onClose = {closeHandler}
       />
     </Overlay>
   );
